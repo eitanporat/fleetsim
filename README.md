@@ -1,6 +1,6 @@
 # FleetSim
 
-![FleetSim compute fleet](assets/fleetsim-hero.svg)
+![FleetSim compute fleet](assets/fleetsim-hero.svg?v=2)
 
 FleetSim is an open-source simulator and optimizer for AI compute fleets.
 

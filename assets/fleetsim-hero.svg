@@ -15,7 +15,9 @@
       <path transform="translate(96 38) scale(2.65)" fill="#4285f4" d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
       <circle cx="86" cy="154" r="14" fill="#27364a"/><circle cx="170" cy="154" r="14" fill="#27364a"/>
       <path d="M96 194q32 30 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M12 170q-58 35-76 92" stroke="#5f9cff" stroke-width="20" stroke-linecap="round"/>
       <path d="M244 170q70 35 96 104" stroke="#5f9cff" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="-64" cy="262" r="13" fill="#5f9cff"/><circle cx="340" cy="274" r="13" fill="#5f9cff"/>
     </g>
     <g transform="translate(470 170)">
       <rect width="260" height="320" rx="42" fill="#fff" stroke="#5fcf8f" stroke-width="8"/>
@@ -24,6 +26,7 @@
       <circle cx="88" cy="174" r="14" fill="#27364a"/><circle cx="172" cy="174" r="14" fill="#27364a"/>
       <path d="M98 214q32 28 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
       <path d="M22 198q-62 42-92 110M238 198q62 42 92 110" stroke="#5fcf8f" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="-70" cy="308" r="13" fill="#5fcf8f"/><circle cx="330" cy="308" r="13" fill="#5fcf8f"/>
     </g>
     <g transform="translate(710 222) rotate(7)">
       <rect width="255" height="260" rx="38" fill="#fff" stroke="#ff7d8a" stroke-width="8"/>
@@ -32,6 +35,8 @@
       <circle cx="86" cy="154" r="14" fill="#27364a"/><circle cx="170" cy="154" r="14" fill="#27364a"/>
       <path d="M96 194q32 30 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
       <path d="M12 170q-70 35-96 104" stroke="#ff7d8a" stroke-width="20" stroke-linecap="round"/>
+      <path d="M243 170q58 35 76 92" stroke="#ff7d8a" stroke-width="20" stroke-linecap="round"/>
+      <circle cx="-84" cy="274" r="13" fill="#ff7d8a"/><circle cx="319" cy="262" r="13" fill="#ff7d8a"/>
     </g>
     <path d="M600 450c-39-53-112-30-112 32 0 70 112 126 112 126s112-56 112-126c0-62-73-85-112-32z" fill="#ff4d6d" stroke="#fff" stroke-width="10"/>
   </g>
