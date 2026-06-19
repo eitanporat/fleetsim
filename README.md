@@ -1,12 +1,16 @@
 # FleetSim
 
-FleetSim is an open-source simulator and optimizer for AI inference and training workloads across heterogeneous hardware fleets.
+FleetSim is an open-source simulator and optimizer for AI compute fleets.
 
-Large AI labs have internal tools for asking which hardware, kernels, model formats, parallelism modes, providers, and prices best satisfy a workload SLO. The open-source ecosystem does not have a shared version of that layer. FleetSim aims to build one.
+The question is simple:
 
-The long-term goal is a system where, instead of benchmarking every deployment by hand, users can describe a model, hardware fleet, pricing model, and SLO, then simulate or optimize across possible deployments. FleetSim should also aggregate compute supply, pricing, and availability across providers, then optimize directly over the real market for the best deployment.
+> Given this model and workload, what should I run, where should I run it, and what will it cost?
 
-The vision is plug-and-play: provide a workload and model, and FleetSim returns the optimal compute fleet across NVIDIA GPUs, AMD GPUs, Google TPUs, AWS Trainium, CPUs, storage, and networking, with exact costs from actual provider data.
+Large AI labs have internal systems for answering that question. They can compare hardware, kernels, quantization formats, parallelism modes, providers, prices, and SLOs before committing to a deployment. The open-source ecosystem does not have a shared version of that layer. FleetSim aims to build one.
+
+The vision is plug-and-play: provide a model, workload, and SLO, and FleetSim returns the optimal compute fleet across NVIDIA GPUs, AMD GPUs, Google TPUs, AWS Trainium, CPUs, storage, and networking, with exact costs from actual provider data.
+
+FleetSim should aggregate compute supply, pricing, and availability across providers, then optimize directly over the real market. Instead of manually benchmarking every deployment, users should be able to simulate the deployment space first and spend real money only on the configurations that matter.
 
 FleetSim starts small: model extraction and kernel measurements.
 
@@ -24,7 +28,7 @@ The first milestone is to extract model structure from real artifacts and map th
 
 ## Measurements
 
-FleetSim is measurement-first. Runtime estimates should come from measured data whenever possible.
+FleetSim is measurement-first. The simulator should not pretend that FLOPs are enough. Runtime estimates should come from measured data whenever possible.
 
 A measurement records:
 
@@ -37,7 +41,7 @@ A measurement records:
 - software stack
 - runtime distribution
 
-These measurements become the runtime database used by later simulation and optimization layers.
+These measurements become the runtime database that powers later simulation and optimization layers.
 
 ## TODO
 
