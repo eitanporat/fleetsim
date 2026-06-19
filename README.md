@@ -28,6 +28,8 @@ FleetSim V0 focuses on two layers:
 
 The first milestone is to extract model structure from real artifacts and map that structure to measurable kernel shapes.
 
+The first model representation is [ModelArchitectureIR](docs/model-architecture-ir.md): a concrete, numeric description of blocks, ordered layers, tensor shapes, and parameter counts.
+
 ## Measurements
 
 FleetSim is measurement-first. The simulator should not pretend that FLOPs are enough. Runtime estimates should come from measured data whenever possible.
