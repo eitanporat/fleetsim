@@ -8,7 +8,6 @@
     <circle cx="175" cy="130" r="10" fill="#bfd4e8"/><circle cx="1030" cy="130" r="10" fill="#bfd4e8"/>
   </g>
   <text x="600" y="92" text-anchor="middle" font-family="Arial,sans-serif" font-size="56" font-weight="800" fill="#203040">FleetSim</text>
-  <text x="600" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#53657a">one workload, one model, the right compute fleet</text>
   <g font-family="Arial,sans-serif" font-weight="800" filter="drop-shadow(0 18px 18px rgb(53 80 112 / .18))">
     <g transform="translate(230 220) rotate(-7)">
       <rect width="255" height="265" rx="38" fill="#fff" stroke="#5f9cff" stroke-width="8"/>
@@ -34,6 +33,6 @@
       <path d="M96 194q32 30 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
       <path d="M12 170q-70 35-96 104" stroke="#ff7d8a" stroke-width="20" stroke-linecap="round"/>
     </g>
-    <path d="M600 366c-39-53-112-30-112 32 0 70 112 126 112 126s112-56 112-126c0-62-73-85-112-32z" fill="#ff4d6d" stroke="#fff" stroke-width="10"/>
+    <path d="M600 386c-39-53-112-30-112 32 0 70 112 126 112 126s112-56 112-126c0-62-73-85-112-32z" fill="#ff4d6d" stroke="#fff" stroke-width="10"/>
   </g>
 </svg>
