@@ -1,6 +1,6 @@
-[submodule "llm.c"]
-	path = llm.c
-	url = https://github.com/karpathy/llm.c
 [submodule "vllm"]
 	path = vllm
 	url = https://github.com/vllm-project/vllm
+[submodule "llama.cpp"]
+	path = llama.cpp
+	url = https://github.com/ggml-org/llama.cpp
