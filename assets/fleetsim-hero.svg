@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">FleetSim compute fleet</title>
+  <desc id="desc">Cute TPU, NVIDIA GPU, and AMD GPU cards hugging a heart.</desc>
+  <rect width="1200" height="630" fill="#f7fbff"/>
+  <path d="M0 510c180-80 350-55 520-10s340 75 680-35v165H0z" fill="#eaf6f0"/>
+  <g fill="none" stroke="#bfd4e8" stroke-width="4" opacity=".8">
+    <path d="M80 130h190m665 0h185M85 500h220m600 0h210"/>
+    <circle cx="175" cy="130" r="10" fill="#bfd4e8"/><circle cx="1030" cy="130" r="10" fill="#bfd4e8"/>
+  </g>
+  <text x="600" y="92" text-anchor="middle" font-family="Arial,sans-serif" font-size="56" font-weight="800" fill="#203040">FleetSim</text>
+  <text x="600" y="132" text-anchor="middle" font-family="Arial,sans-serif" font-size="24" fill="#53657a">one workload, one model, the right compute fleet</text>
+  <g font-family="Arial,sans-serif" font-weight="800" filter="drop-shadow(0 18px 18px rgb(53 80 112 / .18))">
+    <g transform="translate(230 220) rotate(-7)">
+      <rect width="255" height="265" rx="38" fill="#fff" stroke="#5f9cff" stroke-width="8"/>
+      <rect x="32" y="36" width="191" height="72" rx="18" fill="#dceeff"/>
+      <text x="128" y="84" text-anchor="middle" font-size="34" fill="#2364c8">TPU</text>
+      <circle cx="86" cy="154" r="14" fill="#27364a"/><circle cx="170" cy="154" r="14" fill="#27364a"/>
+      <path d="M96 194q32 30 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M244 170q70 35 96 104" stroke="#5f9cff" stroke-width="20" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(470 170)">
+      <rect width="260" height="320" rx="42" fill="#fff" stroke="#5fcf8f" stroke-width="8"/>
+      <rect x="30" y="44" width="200" height="76" rx="18" fill="#dcf8e8"/>
+      <text x="130" y="92" text-anchor="middle" font-size="28" fill="#21834f">NVIDIA</text>
+      <circle cx="88" cy="174" r="14" fill="#27364a"/><circle cx="172" cy="174" r="14" fill="#27364a"/>
+      <path d="M98 214q32 28 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M22 198q-62 42-92 110M238 198q62 42 92 110" stroke="#5fcf8f" stroke-width="20" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(710 222) rotate(7)">
+      <rect width="255" height="260" rx="38" fill="#fff" stroke="#ff7d8a" stroke-width="8"/>
+      <rect x="32" y="36" width="191" height="72" rx="18" fill="#ffe2e5"/>
+      <text x="128" y="84" text-anchor="middle" font-size="34" fill="#cc3244">AMD</text>
+      <circle cx="86" cy="154" r="14" fill="#27364a"/><circle cx="170" cy="154" r="14" fill="#27364a"/>
+      <path d="M96 194q32 30 64 0" stroke="#27364a" stroke-width="8" stroke-linecap="round" fill="none"/>
+      <path d="M12 170q-70 35-96 104" stroke="#ff7d8a" stroke-width="20" stroke-linecap="round"/>
+    </g>
+    <path d="M600 366c-39-53-112-30-112 32 0 70 112 126 112 126s112-56 112-126c0-62-73-85-112-32z" fill="#ff4d6d" stroke="#fff" stroke-width="10"/>
+  </g>
+</svg>

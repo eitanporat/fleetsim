@@ -1,5 +1,7 @@
 # FleetSim
 
+![FleetSim compute fleet](assets/fleetsim-hero.svg)
+
 FleetSim is an open-source simulator and optimizer for AI compute fleets.
 
 The question is simple:
