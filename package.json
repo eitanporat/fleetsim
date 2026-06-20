@@ -1,0 +1,21 @@
+{
+  "name": "fleetsim",
+  "private": true,
+  "scripts": {
+    "gguf:discover": "node scripts/discover-ggufs.mjs --task=text-generation --sort=likes --limit=5000 --out=db/ggufs.json",
+    "gguf:discover:all": "node scripts/discover-ggufs.mjs --task=text-generation --sort=likes --out=db/ggufs.json",
+    "gguf:dedup-arch": "node scripts/dedup-gguf-architectures.mjs --models=db/ggufs.json --out=db/gguf-architectures.json --cache=.cache/gguf-architecture-cache.jsonl --limit=1000 --concurrency=8",
+    "gguf:dedup-arch:all": "node scripts/dedup-gguf-architectures.mjs --models=db/ggufs.json --out=db/gguf-architectures.json --cache=.cache/gguf-architecture-cache.jsonl --concurrency=8",
+    "gguf:ir": "node scripts/gguf-to-model-ir.mjs",
+    "gguf:ir:architectures": "node scripts/gguf-to-model-ir.mjs --models=db/gguf-architectures.json --out-dir=db/model-ir --continue-on-error --concurrency=16",
+    "gguf:ir:discovered": "node scripts/gguf-to-model-ir.mjs --models=db/ggufs.json --out-dir=db/model-ir --continue-on-error --concurrency=16",
+    "gguf:ir:important": "node scripts/gguf-to-model-ir.mjs --models=db/important-ggufs.json --out-dir=db/model-ir --concurrency=16",
+    "diagrams": "node scripts/render-model-diagrams.mjs --png",
+    "build": "node --check ui/app.js && node --check ui/diagram.mjs && node --check scripts/render-model-diagrams.mjs",
+    "ui": "python3 -m http.server ${PORT:-5174}",
+    "bench": "node scripts/bench.mjs"
+  },
+  "dependencies": {
+    "@huggingface/gguf": "0.4.2"
+  }
+}

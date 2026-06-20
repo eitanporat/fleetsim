@@ -1,0 +1,161 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "allenai_olmo_1b_0724_hf_bbc6a54a",
+    "name": "allenai/OLMo-1B-0724-hf",
+    "hf_name": "allenai/OLMo-1B-0724-hf",
+    "base_model": "allenai/OLMo-1B-0724-hf",
+    "artifact_name": "OLMo 1B 0724 Hf",
+    "repo": "aifoundry-org/OLMo-1B-0724-hf-Quantized",
+    "file": "OLMo-1B-hf-0724-Q8_0.gguf",
+    "architecture": "olmo",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/aifoundry-org/OLMo-1B-0724-hf-Quantized/resolve/main/OLMo-1B-hf-0724-Q8_0.gguf",
+    "parameter_count": 1279787008
+  },
+  "dimensions": {
+    "vocab_size": 50304,
+    "context_length": 4096,
+    "hidden_size": 2048,
+    "num_blocks": 16,
+    "num_attention_heads": 16,
+    "num_kv_heads": 16,
+    "head_dim": 128,
+    "value_head_dim": 128,
+    "intermediate_size": 8192
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2048,
+            50304
+          ],
+          "parameter_count": 103022592
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 16,
+    "ranges": [
+      {
+        "range": [
+          0,
+          15
+        ],
+        "layout": [
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 16,
+              "num_kv_heads": 16,
+              "head_dim": 128,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  2048,
+                  8192
+                ],
+                "parameter_count": 16777216
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  2048,
+                  8192
+                ],
+                "parameter_count": 16777216
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  8192,
+                  2048
+                ],
+                "parameter_count": 16777216
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 67108864,
+        "total_parameter_count": 1073741824
+      }
+    ],
+    "total_parameter_count": 1073741824
+  },
+  "output": [
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            2048,
+            50304
+          ],
+          "parameter_count": 103022592
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,242 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "microsoft_phi_2_b00e6573",
+    "name": "microsoft/phi-2",
+    "hf_name": "microsoft/phi-2",
+    "base_model": "microsoft/phi-2",
+    "artifact_name": "Phi2 Merged",
+    "repo": "CodeXdhruv/phi2-ds-trained",
+    "file": "phi2-q4_k_m.gguf",
+    "architecture": "phi2",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/CodeXdhruv/phi2-ds-trained/resolve/main/phi2-q4_k_m.gguf",
+    "parameter_count": 2779683840
+  },
+  "dimensions": {
+    "vocab_size": 51200,
+    "context_length": 2048,
+    "hidden_size": 2560,
+    "num_blocks": 32,
+    "num_attention_heads": 32,
+    "num_kv_heads": 32,
+    "head_dim": 80,
+    "value_head_dim": 80,
+    "intermediate_size": 10240
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2560,
+            51200
+          ],
+          "parameter_count": 131072000
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 32,
+    "ranges": [
+      {
+        "range": [
+          0,
+          31
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              },
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 32,
+              "num_kv_heads": 32,
+              "head_dim": 80,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  2560,
+                  2560
+                ],
+                "parameter_count": 6553600
+              },
+              {
+                "name": "blk.N.attn_q.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  2560,
+                  2560
+                ],
+                "parameter_count": 6553600
+              },
+              {
+                "name": "blk.N.attn_k.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  2560,
+                  2560
+                ],
+                "parameter_count": 6553600
+              },
+              {
+                "name": "blk.N.attn_v.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  2560,
+                  2560
+                ],
+                "parameter_count": 6553600
+              },
+              {
+                "name": "blk.N.attn_output.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "fused_mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "fused"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  2560,
+                  10240
+                ],
+                "parameter_count": 26214400
+              },
+              {
+                "name": "blk.N.ffn_up.bias",
+                "shape": [
+                  10240
+                ],
+                "parameter_count": 10240
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  10240,
+                  2560
+                ],
+                "parameter_count": 26214400
+              },
+              {
+                "name": "blk.N.ffn_down.bias",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 78671360,
+        "total_parameter_count": 2517483520
+      }
+    ],
+    "total_parameter_count": 2517483520
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            2560
+          ],
+          "parameter_count": 2560
+        },
+        {
+          "name": "output_norm.bias",
+          "shape": [
+            2560
+          ],
+          "parameter_count": 2560
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            2560,
+            51200
+          ],
+          "parameter_count": 131072000
+        },
+        {
+          "name": "output.bias",
+          "shape": [
+            51200
+          ],
+          "parameter_count": 51200
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "bigscience_bloom_1b7_d06b71de",
+    "name": "bigscience/bloom-1b7",
+    "hf_name": "bigscience/bloom-1b7",
+    "base_model": "bigscience/bloom-1b7",
+    "artifact_name": "Bloom 1b7",
+    "repo": "893790183LZW/bloom-1b7-Q4_K_M-GGUF",
+    "file": "bloom-1b7-q4_k_m.gguf",
+    "architecture": "bloom",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/893790183LZW/bloom-1b7-Q4_K_M-GGUF/resolve/main/bloom-1b7-q4_k_m.gguf",
+    "parameter_count": 1722408960
+  },
+  "dimensions": {
+    "vocab_size": 250880,
+    "context_length": 4096,
+    "hidden_size": 2048,
+    "num_blocks": 24,
+    "num_attention_heads": 16,
+    "num_kv_heads": 16,
+    "head_dim": 128,
+    "value_head_dim": 128,
+    "intermediate_size": 8192
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2048,
+            250880
+          ],
+          "parameter_count": 513802240
+        }
+      ]
+    },
+    {
+      "op": "rms_norm",
+      "name": "token_embedding_norm",
+      "parameters": [
+        {
+          "name": "token_embd_norm.bias",
+          "shape": [
+            2048
+          ],
+          "parameter_count": 2048
+        },
+        {
+          "name": "token_embd_norm.weight",
+          "shape": [
+            2048
+          ],
+          "parameter_count": 2048
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 24,
+    "ranges": [
+      {
+        "range": [
+          0,
+          23
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.bias",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              },
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "fused_qkv_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 16,
+              "num_kv_heads": 16,
+              "head_dim": 128,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_qkv.weight",
+                "shape": [
+                  2048,
+                  6144
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.attn_qkv.bias",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.attn_output.bias",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.bias",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              },
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "fused_mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "fused"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  2048,
+                  8192
+                ],
+                "parameter_count": 16777216
+              },
+              {
+                "name": "blk.N.ffn_up.bias",
+                "shape": [
+                  8192
+                ],
+                "parameter_count": 8192
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  8192,
+                  2048
+                ],
+                "parameter_count": 16777216
+              },
+              {
+                "name": "blk.N.ffn_down.bias",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 50358272,
+        "total_parameter_count": 1208598528
+      }
+    ],
+    "total_parameter_count": 1208598528
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            2048
+          ],
+          "parameter_count": 2048
+        },
+        {
+          "name": "output_norm.bias",
+          "shape": [
+            2048
+          ],
+          "parameter_count": 2048
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2048,
+            250880
+          ],
+          "parameter_count": 0,
+          "tied_to": "token_embedding"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,246 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "bigscience_bloomz_560m_7ed151f0",
+    "name": "bigscience/bloomz-560m",
+    "hf_name": "bigscience/bloomz-560m",
+    "base_model": "bigscience/bloomz-560m",
+    "artifact_name": "Bloomz 560m",
+    "repo": "Tralalabs/bloomz-560m-Q8_0-GGUF",
+    "file": "bloomz-560m-q8_0.gguf",
+    "architecture": "bloom",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/Tralalabs/bloomz-560m-Q8_0-GGUF/resolve/main/bloomz-560m-q8_0.gguf",
+    "parameter_count": 559214592
+  },
+  "dimensions": {
+    "vocab_size": 250880,
+    "context_length": 2048,
+    "hidden_size": 1024,
+    "num_blocks": 24,
+    "num_attention_heads": 16,
+    "num_kv_heads": 16,
+    "head_dim": 64,
+    "value_head_dim": 64,
+    "intermediate_size": 4096
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            1024,
+            250880
+          ],
+          "parameter_count": 256901120
+        }
+      ]
+    },
+    {
+      "op": "rms_norm",
+      "name": "token_embedding_norm",
+      "parameters": [
+        {
+          "name": "token_embd_norm.bias",
+          "shape": [
+            1024
+          ],
+          "parameter_count": 1024
+        },
+        {
+          "name": "token_embd_norm.weight",
+          "shape": [
+            1024
+          ],
+          "parameter_count": 1024
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 24,
+    "ranges": [
+      {
+        "range": [
+          0,
+          23
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.bias",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              },
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              }
+            ]
+          },
+          {
+            "op": "fused_qkv_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 16,
+              "num_kv_heads": 16,
+              "head_dim": 64,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_qkv.weight",
+                "shape": [
+                  1024,
+                  3072
+                ],
+                "parameter_count": 3145728
+              },
+              {
+                "name": "blk.N.attn_qkv.bias",
+                "shape": [
+                  3072
+                ],
+                "parameter_count": 3072
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  1024,
+                  1024
+                ],
+                "parameter_count": 1048576
+              },
+              {
+                "name": "blk.N.attn_output.bias",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.bias",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              },
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              }
+            ]
+          },
+          {
+            "op": "fused_mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "fused"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  1024,
+                  4096
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.ffn_up.bias",
+                "shape": [
+                  4096
+                ],
+                "parameter_count": 4096
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  4096,
+                  1024
+                ],
+                "parameter_count": 4194304
+              },
+              {
+                "name": "blk.N.ffn_down.bias",
+                "shape": [
+                  1024
+                ],
+                "parameter_count": 1024
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 12596224,
+        "total_parameter_count": 302309376
+      }
+    ],
+    "total_parameter_count": 302309376
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            1024
+          ],
+          "parameter_count": 1024
+        },
+        {
+          "name": "output_norm.bias",
+          "shape": [
+            1024
+          ],
+          "parameter_count": 1024
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            1024,
+            250880
+          ],
+          "parameter_count": 0,
+          "tied_to": "token_embedding"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,810 @@
+:root {
+  --bg: #f6f7f8;
+  --panel: #ffffff;
+  --line: #d9dee3;
+  --text: #16191d;
+  --muted: #66707a;
+  --accent: #0d9488;
+  --accent-2: #b45309;
+  --soft: #eef6f5;
+  --warn: #fff7ed;
+}
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 13px/1.4 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+}
+
+h1, h2, h3, p { margin: 0; }
+h1 { font-size: 18px; font-weight: 700; }
+h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0; }
+#detail-title {
+  text-transform: none;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+h3 { margin-top: 18px; font-size: 12px; text-transform: uppercase; color: var(--muted); letter-spacing: 0; }
+
+.section-head span, label { color: var(--muted); }
+
+button, select, input {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+}
+
+button { cursor: pointer; }
+button:hover, tr:hover { background: var(--soft); }
+button:disabled { opacity: 0.45; cursor: default; }
+button:disabled:hover { background: var(--panel); }
+
+main {
+  display: grid;
+  grid-template-columns: 232px var(--registry-width, minmax(360px, .82fr)) 8px minmax(540px, 1.18fr);
+  gap: 10px;
+  height: calc(100vh - 64px);
+  padding: 12px;
+  overflow: hidden;
+}
+
+aside, .registry, .details {
+  min-height: 0;
+  min-width: 0;
+  height: 100%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+}
+
+.splitter {
+  height: 100%;
+  border-radius: 6px;
+  cursor: col-resize;
+}
+
+.splitter:hover,
+.splitter.dragging {
+  background: var(--line);
+}
+
+aside {
+  padding: 12px;
+  overflow: auto;
+}
+
+.aside-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.aside-head span {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+#reset {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+input:not([type="checkbox"]), select {
+  width: 100%;
+  height: 32px;
+  padding: 0 8px;
+}
+
+input[type="checkbox"] {
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--accent);
+}
+
+.facet {
+  margin-top: 4px;
+}
+
+.facet-title {
+  margin-bottom: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.facet-option {
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  margin: 0;
+  padding: 4px 0;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.facet-option span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.facet-option small {
+  color: var(--muted);
+}
+
+.section-head {
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.table-wrap {
+  min-width: 0;
+  max-width: 100%;
+  overflow: auto;
+  height: calc(100% - 44px);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  white-space: nowrap;
+}
+
+/* cap the HF-name column so long model names truncate instead of pushing the
+   numeric columns (Downloads, Params…) off the right edge of the registry pane */
+.registry td:first-child, .registry th:first-child {
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: #f9fafb;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.diagram-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line);
+  background: #fafbfc;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.diagram-legend .lg { display: inline-flex; align-items: center; gap: 5px; }
+.diagram-legend .lg i {
+  width: 13px;
+  height: 13px;
+  border-radius: 3px;
+  border: 1px solid #1e293b;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.diagram-legend .lg .lg-res {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.4px solid #1e293b;
+  background: #fff;
+  font-weight: 800;
+  font-size: 11px;
+  line-height: 1;
+  color: #0f172a;
+}
+
+th[data-sort] { cursor: pointer; }
+
+th[data-sort]::after {
+  content: "";
+  display: inline-block;
+  width: 1em;
+  color: var(--accent);
+}
+
+th[data-dir="asc"]::after { content: "↑"; }
+th[data-dir="desc"]::after { content: "↓"; }
+
+tbody tr { cursor: pointer; }
+tr.active { background: var(--soft); }
+
+.details {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.details-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 12px;
+}
+
+.attribute-section {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  margin-bottom: 10px;
+}
+
+.attribute-section > summary {
+  padding: 8px;
+  background: #f9fafb;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.attribute-section[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.kv {
+  min-width: 0;
+  max-width: 100%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.attr-table {
+  overflow-x: hidden;
+}
+
+.kv div {
+  min-width: 0;
+  padding: 8px 10px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  border-left: 1px solid var(--line);
+}
+
+.kv div:nth-child(-n+2) { border-top: 0; }
+.kv div:nth-child(odd) { border-left: 0; }
+
+.kv b {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.kv span {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.range {
+  margin-top: 10px;
+  border: 1px solid var(--line);
+}
+
+.range-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px;
+  background: #f9fafb;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+}
+
+details.range:not([open]) .range-head {
+  border-bottom: 0;
+}
+
+summary.range-head::marker {
+  color: var(--muted);
+}
+
+.block-ranges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+.block-ranges b {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.block-ranges span {
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fbfbfb;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.pattern-body {
+  display: grid;
+  padding: 10px;
+}
+
+.layer-stack {
+  display: grid;
+  justify-items: center;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.layer {
+  position: relative;
+  width: min(320px, 100%);
+  min-height: 42px;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  padding: 7px 10px;
+  border-color: #c9d8d6;
+  background: var(--soft);
+  text-align: center;
+}
+
+.layer + .layer {
+  margin-top: 18px;
+}
+
+.layer + .layer::before {
+  content: "";
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  height: 18px;
+  border-left: 1px solid var(--line);
+}
+
+.layer.selected {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.layer small {
+  color: var(--muted);
+}
+
+.view-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0 10px;
+}
+
+.segmented {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 1fr);
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+}
+
+.segmented button {
+  min-width: 88px;
+  height: 30px;
+  border: 0;
+  border-radius: 0;
+  background: #f9fafb;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.segmented button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.toggle {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 6px;
+  height: 30px;
+  margin: 0;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fbfbfb;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.diagram-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 8px;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+  background: #fff;
+}
+
+.icon-btn {
+  height: 32px;
+  min-width: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+}
+
+.icon-btn .i { display: block; color: #334155; }
+.icon-btn:hover { background: var(--soft); border-color: #c2cdd6; }
+.icon-btn:active { transform: translateY(0.5px); }
+.icon-btn.labeled { font-size: 12px; font-weight: 600; color: var(--muted); }
+.icon-btn.labeled .i { width: 15px; height: 15px; }
+
+.zoom-group {
+  display: inline-flex;
+  align-items: stretch;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--panel);
+}
+
+.zoom-group .icon-btn,
+.zoom-group .zoom-val {
+  border: 0;
+  border-radius: 0;
+  height: 30px;
+}
+
+.zoom-group .zoom-val {
+  min-width: 50px;
+  padding: 0 8px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  cursor: pointer;
+}
+
+.zoom-group .icon-btn:hover,
+.zoom-group .zoom-val:hover { background: var(--soft); }
+
+.tool-spacer { flex: 1; }
+
+.tool-divider {
+  width: 1px;
+  height: 20px;
+  background: var(--line);
+}
+
+.chip {
+  display: inline-flex;
+  grid-template-columns: none;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  margin: 0;
+  padding: 0 11px 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip:hover { background: var(--soft); }
+.chip:has(input:checked) { border-color: var(--accent); background: var(--soft); color: var(--accent); }
+
+:where(button, .chip, summary, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.diagram-shell {
+  position: relative;
+  min-width: 0;
+  border: 1px solid var(--line);
+  background: #fcfcfd;
+}
+
+.diagram-shell.fullscreen {
+  position: fixed;
+  inset: 10px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  background: #fbfbfc;
+  box-shadow: 0 18px 60px rgba(17, 24, 39, .24);
+}
+
+.diagram-shell.fullscreen .diagram-canvas {
+  min-height: 0;
+  padding: 16px;
+  background: #f3f5f7;
+}
+
+.diagram-shell.fullscreen .arch-svg {
+  min-width: 1180px;
+}
+
+.diagram-exit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  background: #fff;
+}
+
+.diagram-patterns {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pattern-select {
+  flex: 0 0 150px;
+  display: grid;
+  gap: 2px;
+  padding: 8px;
+  text-align: left;
+}
+
+.pattern-select.active {
+  border-color: var(--accent);
+  background: var(--soft);
+}
+
+.pattern-select span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.diagram-range-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  padding: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.diagram-range-strip b {
+  color: var(--muted);
+  font-size: 11px;
+  text-transform: uppercase;
+}
+
+.diagram-range-strip span {
+  padding: 3px 6px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.diagram-canvas {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+  padding: 10px;
+}
+
+/* The architecture SVG is fully self-styled via its own inline <style>.
+   Keep external rules to layout/sizing only so they never override it. */
+.arch-svg {
+  display: block;
+  width: var(--diagram-width, 100%);
+  max-width: none;
+  height: auto;
+}
+
+.muted { color: var(--muted); }
+.warn { background: var(--warn); }
+
+pre {
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: #fbfbfb;
+}
+
+.param-table {
+  margin-top: 10px;
+  min-width: 0;
+  max-width: 100%;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--line);
+}
+
+.inspector-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 2px;
+}
+
+.inspector-head b { font-size: 13px; }
+.inspector-head .muted { font-size: 11px; }
+
+.param-badge {
+  background: #fde047;
+  color: #713f12;
+  padding: 3px 10px;
+  border-radius: 5px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.op-list { margin-top: 10px; max-height: 360px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; }
+.op-card { border-bottom: 1px solid var(--line); }
+.op-card:last-child { border-bottom: 0; }
+.op-card > summary {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 10px; cursor: pointer; list-style: none;
+  background: #f9fafb; font-weight: 600;
+}
+.op-card > summary::-webkit-details-marker { display: none; }
+.op-card > summary::before { content: "▸"; color: var(--muted); }
+.op-card[open] > summary::before { content: "▾"; }
+.op-card.op-sel > summary { background: #fde047; color: #422006; }
+.oc-label { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.oc-meta { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.op-card.op-sel .oc-meta { color: #713f12; }
+.oc-table { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.oc-table td { padding: 5px 10px; border-top: 1px solid var(--line); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.oc-table td:first-child { width: 56%; }
+.oc-table td.marker { text-align: right; font-weight: 700; width: 22%; }
+.wr-note { color: var(--muted); font-weight: 600; }
+.oc-empty { padding: 6px 10px; margin: 0; }
+.weight-row.tensor-focus td { background: #fde047; }
+.weight-row.tensor-focus td:first-child { box-shadow: inset 4px 0 0 #ca8a04; font-weight: 700; }
+
+@keyframes inspFlash {
+  0% { box-shadow: 0 0 0 3px #fde047; background: #fefce8; }
+  100% { box-shadow: 0 0 0 0 transparent; background: transparent; }
+}
+
+#inspector.flash { animation: inspFlash 0.9s ease; border-radius: 6px; }
+
+@media (max-width: 1180px) {
+  body { overflow: auto; overflow-x: hidden; }
+  main { grid-template-columns: 220px minmax(0, 1fr); height: auto; min-height: calc(100vh - 64px); overflow: visible; }
+  .splitter { display: none; }
+  aside, .registry { height: auto; max-height: calc(100vh - 96px); }
+  .details { grid-column: 1 / -1; height: auto; }
+  .details-body { overflow: visible; }
+}
+
+@media (max-width: 760px) {
+  header { height: auto; align-items: flex-start; gap: 12px; padding: 12px; }
+  main { grid-template-columns: minmax(0, 1fr); overflow-x: hidden; }
+  aside, .registry, .details, .details-body, .diagram-shell { max-height: none; overflow-x: hidden; }
+  /* grid/flex items default to min-width:auto and refuse to shrink below their
+     (wide) content — force them to the track width so nothing overflows right */
+  .details, .details-body, .diagram-shell, .diagram-canvas, #layout, #inspector, .op-list { min-width: 0; max-width: 100%; }
+  #ops { max-height: 210px; overflow: auto; }
+  .registry .table-wrap { max-height: 42vh; overflow-x: auto; }
+  /* drop secondary columns on narrow viewports so the table fits without
+     right-edge clipping; keep HF name / Arch / Params, truncate long names */
+  .registry th:nth-child(2), .registry td:nth-child(2),
+  .registry th:nth-child(3), .registry td:nth-child(3),
+  .registry th:nth-child(6), .registry td:nth-child(6),
+  .registry th:nth-child(7), .registry td:nth-child(7),
+  .registry th:nth-child(8), .registry td:nth-child(8) { display: none; }
+  .registry td:first-child, .registry th:first-child {
+    max-width: 48vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  /* right gutter so the Params column (last visible col) doesn't hug the edge */
+  .registry th:nth-child(5), .registry td:nth-child(5) { padding-right: 16px; }
+  .registry th:nth-child(5) { text-align: right; }
+  .kv { grid-template-columns: 1fr; }
+  .diagram-canvas { overflow: auto; }
+  /* fit the whole diagram to viewport width so nothing clips; zoom controls enlarge */
+  .arch-svg { min-width: 0; width: var(--diagram-width, 100%); }
+  /* comfortable touch targets */
+  .diagram-range-strip span { min-height: 36px; display: inline-flex; align-items: center; padding: 0 12px; }
+  .icon-btn, .chip, .zoom-group .icon-btn, .zoom-group .zoom-val, .pattern-select { min-height: 40px; }
+  .diagram-range-strip { gap: 6px; }
+  .diagram-tools { gap: 8px; row-gap: 8px; flex-wrap: wrap; }
+  .facet-option { min-height: 44px; }
+  /* comfortable list/row tap targets on touch viewports */
+  tbody td { padding-top: 12px; padding-bottom: 12px; }
+  /* keep inspector content inside the viewport — wrap rather than clip */
+  .inspector-head { flex-wrap: wrap; }
+  .param-badge { white-space: normal; }
+  .op-card > summary { flex-wrap: wrap; }
+  .oc-meta { white-space: normal; }
+  .op-list { overflow-x: hidden; }
+  .oc-table td { white-space: normal; overflow-wrap: anywhere; }
+  .oc-table td:first-child { width: 48%; }
+  .oc-table td.marker { width: 32%; }
+}

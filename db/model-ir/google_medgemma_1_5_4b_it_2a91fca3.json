@@ -1,0 +1,241 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "google_medgemma_1_5_4b_it_2a91fca3",
+    "name": "google/medgemma-1.5-4b-it",
+    "hf_name": "google/medgemma-1.5-4b-it",
+    "base_model": "google/medgemma-1.5-4b-it",
+    "artifact_name": "Medgemma Hf",
+    "repo": "docvm/medgemma-1.5-4b-it-GGUF",
+    "file": "medgemma-1.5-4b-it-Q4_K_M.gguf",
+    "architecture": "gemma3",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/docvm/medgemma-1.5-4b-it-GGUF/resolve/main/medgemma-1.5-4b-it-Q4_K_M.gguf",
+    "parameter_count": 3880263168
+  },
+  "dimensions": {
+    "vocab_size": 262208,
+    "context_length": 131072,
+    "hidden_size": 2560,
+    "num_blocks": 34,
+    "num_attention_heads": 8,
+    "num_kv_heads": 4,
+    "head_dim": 256,
+    "value_head_dim": 256,
+    "intermediate_size": 10240
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2560,
+            262208
+          ],
+          "parameter_count": 671252480
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 34,
+    "ranges": [
+      {
+        "range": [
+          0,
+          33
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 8,
+              "num_kv_heads": 4,
+              "head_dim": 256,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  2560,
+                  2048
+                ],
+                "parameter_count": 5242880
+              },
+              {
+                "name": "blk.N.attn_q_norm.weight",
+                "shape": [
+                  256
+                ],
+                "parameter_count": 256
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  2560,
+                  1024
+                ],
+                "parameter_count": 2621440
+              },
+              {
+                "name": "blk.N.attn_k_norm.weight",
+                "shape": [
+                  256
+                ],
+                "parameter_count": 256
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  2560,
+                  1024
+                ],
+                "parameter_count": 2621440
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  2048,
+                  2560
+                ],
+                "parameter_count": 5242880
+              }
+            ]
+          },
+          {
+            "op": "rms_norm",
+            "name": "post_attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.post_attention_norm.weight",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  2560,
+                  10240
+                ],
+                "parameter_count": 26214400
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  2560,
+                  10240
+                ],
+                "parameter_count": 26214400
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  10240,
+                  2560
+                ],
+                "parameter_count": 26214400
+              }
+            ]
+          },
+          {
+            "op": "rms_norm",
+            "name": "post_ffw_norm",
+            "parameters": [
+              {
+                "name": "blk.N.post_ffw_norm.weight",
+                "shape": [
+                  2560
+                ],
+                "parameter_count": 2560
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 94382592,
+        "total_parameter_count": 3209008128
+      }
+    ],
+    "total_parameter_count": 3209008128
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            2560
+          ],
+          "parameter_count": 2560
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2560,
+            262208
+          ],
+          "parameter_count": 0,
+          "tied_to": "token_embedding"
+        }
+      ]
+    }
+  ]
+}

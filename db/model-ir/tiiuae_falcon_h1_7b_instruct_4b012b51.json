@@ -1,0 +1,254 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "tiiuae_falcon_h1_7b_instruct_4b012b51",
+    "name": "tiiuae/Falcon-H1-7B-Instruct",
+    "hf_name": "tiiuae/Falcon-H1-7B-Instruct",
+    "base_model": "tiiuae/Falcon-H1-7B-Instruct",
+    "artifact_name": "Falcon H1 7B Instruct",
+    "repo": "s3dev-ai/Falcon-H1-7B-Instruct-gguf",
+    "file": "Falcon-H1-7B-Instruct-Q4_K_M.gguf",
+    "architecture": "falcon-h1",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/s3dev-ai/Falcon-H1-7B-Instruct-gguf/resolve/main/Falcon-H1-7B-Instruct-Q4_K_M.gguf",
+    "parameter_count": 7585654880
+  },
+  "dimensions": {
+    "vocab_size": 130049,
+    "context_length": 262144,
+    "hidden_size": 3072,
+    "num_blocks": 44,
+    "num_attention_heads": 12,
+    "num_kv_heads": 2,
+    "head_dim": 128,
+    "value_head_dim": 128,
+    "intermediate_size": 12288
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            3072,
+            130049
+          ],
+          "parameter_count": 399510528
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 44,
+    "ranges": [
+      {
+        "range": [
+          0,
+          43
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  3072
+                ],
+                "parameter_count": 3072
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 12,
+              "num_kv_heads": 2,
+              "head_dim": 128,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  3072,
+                  1536
+                ],
+                "parameter_count": 4718592
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  3072,
+                  256
+                ],
+                "parameter_count": 786432
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  3072,
+                  256
+                ],
+                "parameter_count": 786432
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  1536,
+                  3072
+                ],
+                "parameter_count": 4718592
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  3072,
+                  12288
+                ],
+                "parameter_count": 37748736
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  3072,
+                  12288
+                ],
+                "parameter_count": 37748736
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  12288,
+                  3072
+                ],
+                "parameter_count": 37748736
+              }
+            ]
+          },
+          {
+            "op": "state_space",
+            "name": "state_space",
+            "parameters": [
+              {
+                "name": "blk.N.ssm_a",
+                "shape": [
+                  1,
+                  24
+                ],
+                "parameter_count": 24
+              },
+              {
+                "name": "blk.N.ssm_conv1d.bias",
+                "shape": [
+                  3584
+                ],
+                "parameter_count": 3584
+              },
+              {
+                "name": "blk.N.ssm_conv1d.weight",
+                "shape": [
+                  4,
+                  3584
+                ],
+                "parameter_count": 14336
+              },
+              {
+                "name": "blk.N.ssm_d",
+                "shape": [
+                  1,
+                  24
+                ],
+                "parameter_count": 24
+              },
+              {
+                "name": "blk.N.ssm_dt.bias",
+                "shape": [
+                  24
+                ],
+                "parameter_count": 24
+              },
+              {
+                "name": "blk.N.ssm_in.weight",
+                "shape": [
+                  3072,
+                  6680
+                ],
+                "parameter_count": 20520960
+              },
+              {
+                "name": "blk.N.ssm_norm.weight",
+                "shape": [
+                  3072
+                ],
+                "parameter_count": 3072
+              },
+              {
+                "name": "blk.N.ssm_out.weight",
+                "shape": [
+                  3072,
+                  3072
+                ],
+                "parameter_count": 9437184
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 154238536,
+        "total_parameter_count": 6786495584
+      }
+    ],
+    "total_parameter_count": 6786495584
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            3072
+          ],
+          "parameter_count": 3072
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            3072,
+            130049
+          ],
+          "parameter_count": 399510528
+        }
+      ]
+    }
+  ]
+}

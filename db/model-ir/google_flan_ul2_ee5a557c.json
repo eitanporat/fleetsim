@@ -1,0 +1,28 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "google_flan_ul2_ee5a557c",
+    "name": "google/flan-ul2",
+    "hf_name": "google/flan-ul2",
+    "base_model": "google/flan-ul2",
+    "repo": "pszemraj/candle-flanUL2-quantized",
+    "file": "flan-ul2-q2k.gguf",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/pszemraj/candle-flanUL2-quantized/resolve/main/flan-ul2-q2k.gguf",
+    "parameter_count": 19459613696
+  },
+  "dimensions": {},
+  "embeddings": [],
+  "blocks": {
+    "count": 0,
+    "ranges": [],
+    "total_parameter_count": 0
+  },
+  "output": [
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": []
+    }
+  ]
+}

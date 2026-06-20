@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="./styles.css">
+  <style>body{margin:0;overflow:auto;background:#fff}#wrap{padding:16px}</style>
+</head>
+<body>
+  <div id="wrap"><div class="diagram-shell"><div class="diagram-canvas" id="c" style="overflow:visible;padding:0"></div></div></div>
+  <script type="module">
+    import { renderArchitectureSvg, layouts, layoutGroups, pickInterestingOp } from "./diagram.mjs";
+    const q = new URLSearchParams(location.search);
+    const ir = await (await fetch("../db/model-ir/" + q.get("file"))).json();
+    const groups = layoutGroups(layouts(ir));
+    const group = groups[Math.min(Number(q.get("group") ?? 0), groups.length - 1)];
+    const range = group.ranges[0];
+    const sel = q.has("op") ? Number(q.get("op")) : pickInterestingOp(range.layout);
+    document.getElementById("c").innerHTML = renderArchitectureSvg(ir, {
+      range, rangeIndex: range.index, groupIndex: groups.indexOf(group),
+      selectedOpIndex: sel, selectedOuter: q.get("outer") || null,
+      showSizes: q.get("sizes") !== "0", showInternals: q.get("internals") !== "0", interactive: true
+    });
+    document.title = "ready";
+  </script>
+</body>
+</html>

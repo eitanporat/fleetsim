@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FleetSim Model Explorer</title>
+    <link rel="stylesheet" href="./styles.css?v=57">
+  </head>
+  <body>
+    <header>
+      <h1>FleetSim Model Explorer</h1>
+    </header>
+
+    <main>
+      <aside>
+        <div class="aside-head">
+          <span>Filters</span>
+          <button id="reset" type="button">Clear</button>
+        </div>
+        <label>
+          Search
+          <input id="search" type="search" autocomplete="off" placeholder="model or architecture">
+        </label>
+        <label>
+          Architecture
+          <select id="arch"></select>
+        </label>
+        <div class="facet">
+          <div class="facet-title">Operations</div>
+          <div id="ops"></div>
+        </div>
+      </aside>
+
+      <section class="registry">
+        <div class="section-head">
+          <h2>Registry</h2>
+          <span id="count"></span>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th data-sort="name">HF name</th>
+                <th data-sort="downloads">Downloads</th>
+                <th data-sort="likes">Likes</th>
+                <th data-sort="arch">Arch</th>
+                <th data-sort="params">Params</th>
+                <th data-sort="blocks">Blocks</th>
+                <th data-sort="context">Context</th>
+                <th data-sort="ops">Ops</th>
+              </tr>
+            </thead>
+            <tbody id="models"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="splitter" class="splitter" role="separator" aria-orientation="vertical" aria-label="Resize registry and model panes"></div>
+
+      <section class="details">
+        <div class="section-head">
+          <h2 id="detail-title">Architecture</h2>
+        </div>
+        <div class="details-body">
+          <div id="layout-tools"></div>
+          <div id="layout"></div>
+          <h3>Op Inspector</h3>
+          <div id="inspector"></div>
+          <details class="attribute-section">
+            <summary>Model details</summary>
+            <div id="summary" class="kv attr-table"></div>
+          </details>
+          <details class="attribute-section">
+            <summary>Dimensions</summary>
+            <div id="dimensions" class="kv attr-table"></div>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="./app.js?v=57"></script>
+  </body>
+</html>

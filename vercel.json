@@ -1,0 +1,11 @@
+{
+  "outputDirectory": ".",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/ui/",
+      "permanent": false
+    }
+  ]
+}

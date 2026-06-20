@@ -4,6 +4,8 @@
 
 FleetSim is an open-source simulator and optimizer for AI compute fleets.
 
+Model explorer: https://fleetsim.vercel.app
+
 The question is simple:
 
 > Given this model and workload, what should I run, where should I run it, and what will it cost?

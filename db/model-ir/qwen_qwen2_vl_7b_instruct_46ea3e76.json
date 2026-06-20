@@ -1,0 +1,221 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "qwen_qwen2_vl_7b_instruct_46ea3e76",
+    "name": "Qwen/Qwen2-VL-7B-Instruct",
+    "hf_name": "Qwen/Qwen2-VL-7B-Instruct",
+    "base_model": "Qwen/Qwen2-VL-7B-Instruct",
+    "artifact_name": "Qwen.Qwen2 VL 7B Instruct",
+    "repo": "DevQuasar-2/Qwen.Qwen2-VL-7B-Instruct-GGUF",
+    "file": "Qwen2.5-7b-instruct-Q4_K_M.gguf",
+    "architecture": "qwen2vl",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/DevQuasar-2/Qwen.Qwen2-VL-7B-Instruct-GGUF/resolve/main/Qwen2.5-7b-instruct-Q4_K_M.gguf",
+    "parameter_count": 7615616512
+  },
+  "dimensions": {
+    "vocab_size": 152064,
+    "context_length": 32768,
+    "hidden_size": 3584,
+    "num_blocks": 28,
+    "num_attention_heads": 28,
+    "num_kv_heads": 4,
+    "head_dim": 128,
+    "value_head_dim": 128,
+    "intermediate_size": 18944
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            3584,
+            152064
+          ],
+          "parameter_count": 544997376
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 28,
+    "ranges": [
+      {
+        "range": [
+          0,
+          27
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  3584
+                ],
+                "parameter_count": 3584
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 28,
+              "num_kv_heads": 4,
+              "head_dim": 128,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  3584,
+                  3584
+                ],
+                "parameter_count": 12845056
+              },
+              {
+                "name": "blk.N.attn_q.bias",
+                "shape": [
+                  3584
+                ],
+                "parameter_count": 3584
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  3584,
+                  512
+                ],
+                "parameter_count": 1835008
+              },
+              {
+                "name": "blk.N.attn_k.bias",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  3584,
+                  512
+                ],
+                "parameter_count": 1835008
+              },
+              {
+                "name": "blk.N.attn_v.bias",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  3584,
+                  3584
+                ],
+                "parameter_count": 12845056
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  3584
+                ],
+                "parameter_count": 3584
+              }
+            ]
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  3584,
+                  18944
+                ],
+                "parameter_count": 67895296
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  3584,
+                  18944
+                ],
+                "parameter_count": 67895296
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  18944,
+                  3584
+                ],
+                "parameter_count": 67895296
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 233057792,
+        "total_parameter_count": 6525618176
+      }
+    ],
+    "total_parameter_count": 6525618176
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            3584
+          ],
+          "parameter_count": 3584
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            3584,
+            152064
+          ],
+          "parameter_count": 544997376
+        }
+      ]
+    }
+  ]
+}

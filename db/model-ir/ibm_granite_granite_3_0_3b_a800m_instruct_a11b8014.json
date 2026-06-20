@@ -1,0 +1,213 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "ibm_granite_granite_3_0_3b_a800m_instruct_a11b8014",
+    "name": "ibm-granite/granite-3.0-3b-a800m-instruct",
+    "hf_name": "ibm-granite/granite-3.0-3b-a800m-instruct",
+    "base_model": "ibm-granite/granite-3.0-3b-a800m-instruct",
+    "artifact_name": "Granite 3.0 3b A800M Instruct",
+    "repo": "bartowski/granite-3.0-3b-a800m-instruct-GGUF",
+    "file": "granite-3.0-3b-a800m-instruct-Q4_K_M.gguf",
+    "architecture": "granitemoe",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/bartowski/granite-3.0-3b-a800m-instruct-GGUF/resolve/main/granite-3.0-3b-a800m-instruct-Q4_K_M.gguf",
+    "parameter_count": 3374295552
+  },
+  "dimensions": {
+    "vocab_size": 49155,
+    "context_length": 4096,
+    "hidden_size": 1536,
+    "num_blocks": 32,
+    "num_attention_heads": 24,
+    "num_kv_heads": 8,
+    "head_dim": 64,
+    "value_head_dim": 64,
+    "intermediate_size": 512,
+    "expert_count": 40,
+    "experts_per_token": 8
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            1536,
+            49155
+          ],
+          "parameter_count": 75502080
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 32,
+    "ranges": [
+      {
+        "range": [
+          0,
+          31
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  1536
+                ],
+                "parameter_count": 1536
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 24,
+              "num_kv_heads": 8,
+              "head_dim": 64,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  1536,
+                  1536
+                ],
+                "parameter_count": 2359296
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  1536,
+                  512
+                ],
+                "parameter_count": 786432
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  1536,
+                  512
+                ],
+                "parameter_count": 786432
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  1536,
+                  1536
+                ],
+                "parameter_count": 2359296
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  1536
+                ],
+                "parameter_count": 1536
+              }
+            ]
+          },
+          {
+            "op": "moe_mlp",
+            "name": "expert_feed_forward",
+            "config": {
+              "expert_count": 40,
+              "experts_per_token": 8
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate_inp.weight",
+                "shape": [
+                  1536,
+                  40
+                ],
+                "parameter_count": 61440
+              },
+              {
+                "name": "blk.N.ffn_gate_exps.weight",
+                "shape": [
+                  1536,
+                  512,
+                  40
+                ],
+                "parameter_count": 31457280
+              },
+              {
+                "name": "blk.N.ffn_up_exps.weight",
+                "shape": [
+                  1536,
+                  512,
+                  40
+                ],
+                "parameter_count": 31457280
+              },
+              {
+                "name": "blk.N.ffn_down_exps.weight",
+                "shape": [
+                  512,
+                  1536,
+                  40
+                ],
+                "parameter_count": 31457280
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 100727808,
+        "total_parameter_count": 3223289856
+      }
+    ],
+    "total_parameter_count": 3223289856
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            1536
+          ],
+          "parameter_count": 1536
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            1536,
+            49155
+          ],
+          "parameter_count": 75502080
+        }
+      ]
+    }
+  ]
+}

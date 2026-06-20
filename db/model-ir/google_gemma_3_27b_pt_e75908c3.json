@@ -1,0 +1,241 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "google_gemma_3_27b_pt_e75908c3",
+    "name": "google/gemma-3-27b-pt",
+    "hf_name": "google/gemma-3-27b-pt",
+    "base_model": "google/gemma-3-27b-pt",
+    "artifact_name": "Merged_Gemma3_27B_Fp16",
+    "repo": "stevenalbert10/gemma3-27b-gguf",
+    "file": "gemma3-27b-q4_k_m.gguf",
+    "architecture": "gemma3",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/stevenalbert10/gemma3-27b-gguf/resolve/main/gemma3-27b-q4_k_m.gguf",
+    "parameter_count": 27009346304
+  },
+  "dimensions": {
+    "vocab_size": 262208,
+    "context_length": 131072,
+    "hidden_size": 5376,
+    "num_blocks": 62,
+    "num_attention_heads": 32,
+    "num_kv_heads": 16,
+    "head_dim": 128,
+    "value_head_dim": 128,
+    "intermediate_size": 21504
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            5376,
+            262208
+          ],
+          "parameter_count": 1409630208
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 62,
+    "ranges": [
+      {
+        "range": [
+          0,
+          61
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  5376
+                ],
+                "parameter_count": 5376
+              }
+            ]
+          },
+          {
+            "op": "self_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 32,
+              "num_kv_heads": 16,
+              "head_dim": 128,
+              "rope": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q.weight",
+                "shape": [
+                  5376,
+                  4096
+                ],
+                "parameter_count": 22020096
+              },
+              {
+                "name": "blk.N.attn_q_norm.weight",
+                "shape": [
+                  128
+                ],
+                "parameter_count": 128
+              },
+              {
+                "name": "blk.N.attn_k.weight",
+                "shape": [
+                  5376,
+                  2048
+                ],
+                "parameter_count": 11010048
+              },
+              {
+                "name": "blk.N.attn_k_norm.weight",
+                "shape": [
+                  128
+                ],
+                "parameter_count": 128
+              },
+              {
+                "name": "blk.N.attn_v.weight",
+                "shape": [
+                  5376,
+                  2048
+                ],
+                "parameter_count": 11010048
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  4096,
+                  5376
+                ],
+                "parameter_count": 22020096
+              }
+            ]
+          },
+          {
+            "op": "rms_norm",
+            "name": "post_attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.post_attention_norm.weight",
+                "shape": [
+                  5376
+                ],
+                "parameter_count": 5376
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  5376
+                ],
+                "parameter_count": 5376
+              }
+            ]
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  5376,
+                  21504
+                ],
+                "parameter_count": 115605504
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  5376,
+                  21504
+                ],
+                "parameter_count": 115605504
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  21504,
+                  5376
+                ],
+                "parameter_count": 115605504
+              }
+            ]
+          },
+          {
+            "op": "rms_norm",
+            "name": "post_ffw_norm",
+            "parameters": [
+              {
+                "name": "blk.N.post_ffw_norm.weight",
+                "shape": [
+                  5376
+                ],
+                "parameter_count": 5376
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 412898560,
+        "total_parameter_count": 25599710720
+      }
+    ],
+    "total_parameter_count": 25599710720
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            5376
+          ],
+          "parameter_count": 5376
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            5376,
+            262208
+          ],
+          "parameter_count": 0,
+          "tied_to": "token_embedding"
+        }
+      ]
+    }
+  ]
+}

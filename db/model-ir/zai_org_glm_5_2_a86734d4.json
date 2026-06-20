@@ -1,0 +1,691 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "zai_org_glm_5_2_a86734d4",
+    "name": "zai-org/GLM-5.2",
+    "hf_name": "zai-org/GLM-5.2",
+    "base_model": "zai-org/GLM-5.2",
+    "artifact_name": "Glm-5.2",
+    "repo": "unsloth/GLM-5.2-GGUF",
+    "file": "UD-Q4_K_M/GLM-5.2-UD-Q4_K_M-00001-of-00011.gguf",
+    "architecture": "glm-dsa",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/unsloth/GLM-5.2-GGUF/resolve/main/UD-Q4_K_M/GLM-5.2-UD-Q4_K_M-00001-of-00011.gguf",
+    "parameter_count": 753864139008
+  },
+  "dimensions": {
+    "vocab_size": 154880,
+    "context_length": 1048576,
+    "hidden_size": 6144,
+    "num_blocks": 79,
+    "num_attention_heads": 64,
+    "num_kv_heads": 1,
+    "head_dim": 576,
+    "value_head_dim": 512,
+    "intermediate_size": 12288,
+    "expert_count": 256,
+    "experts_per_token": 8,
+    "leading_dense_blocks": 3,
+    "nextn_blocks": 1,
+    "split_count": 11,
+    "split_tensor_count": 1809,
+    "q_lora_rank": 2048,
+    "kv_lora_rank": 512
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            6144,
+            154880
+          ],
+          "parameter_count": 951582720
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 79,
+    "ranges": [
+      {
+        "range": [
+          0,
+          2
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "dsa_mla_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 64,
+              "q_lora_rank": 2048,
+              "kv_lora_rank": 512,
+              "sparse_indexer": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q_a.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.attn_q_a_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              },
+              {
+                "name": "blk.N.attn_q_b.weight",
+                "shape": [
+                  2048,
+                  16384
+                ],
+                "parameter_count": 33554432
+              },
+              {
+                "name": "blk.N.attn_kv_a_mqa.weight",
+                "shape": [
+                  6144,
+                  576
+                ],
+                "parameter_count": 3538944
+              },
+              {
+                "name": "blk.N.attn_kv_a_norm.weight",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_k_b.weight",
+                "shape": [
+                  192,
+                  512,
+                  64
+                ],
+                "parameter_count": 6291456
+              },
+              {
+                "name": "blk.N.attn_v_b.weight",
+                "shape": [
+                  512,
+                  256,
+                  64
+                ],
+                "parameter_count": 8388608
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  16384,
+                  6144
+                ],
+                "parameter_count": 100663296
+              },
+              {
+                "name": "blk.N.indexer.attn_k.weight",
+                "shape": [
+                  6144,
+                  128
+                ],
+                "parameter_count": 786432
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  6144,
+                  12288
+                ],
+                "parameter_count": 75497472
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  6144,
+                  12288
+                ],
+                "parameter_count": 75497472
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  12288,
+                  6144
+                ],
+                "parameter_count": 75497472
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 392313344,
+        "total_parameter_count": 1176940032
+      },
+      {
+        "range": [
+          3,
+          77
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "dsa_mla_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 64,
+              "q_lora_rank": 2048,
+              "kv_lora_rank": 512,
+              "sparse_indexer": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q_a.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.attn_q_a_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              },
+              {
+                "name": "blk.N.attn_q_b.weight",
+                "shape": [
+                  2048,
+                  16384
+                ],
+                "parameter_count": 33554432
+              },
+              {
+                "name": "blk.N.attn_kv_a_mqa.weight",
+                "shape": [
+                  6144,
+                  576
+                ],
+                "parameter_count": 3538944
+              },
+              {
+                "name": "blk.N.attn_kv_a_norm.weight",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_k_b.weight",
+                "shape": [
+                  192,
+                  512,
+                  64
+                ],
+                "parameter_count": 6291456
+              },
+              {
+                "name": "blk.N.attn_v_b.weight",
+                "shape": [
+                  512,
+                  256,
+                  64
+                ],
+                "parameter_count": 8388608
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  16384,
+                  6144
+                ],
+                "parameter_count": 100663296
+              },
+              {
+                "name": "blk.N.indexer.attn_k.weight",
+                "shape": [
+                  6144,
+                  128
+                ],
+                "parameter_count": 786432
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "moe_mlp",
+            "name": "expert_feed_forward",
+            "config": {
+              "expert_count": 256,
+              "experts_per_token": 8
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate_inp.weight",
+                "shape": [
+                  6144,
+                  256
+                ],
+                "parameter_count": 1572864
+              },
+              {
+                "name": "blk.N.exp_probs_b.bias",
+                "shape": [
+                  256
+                ],
+                "parameter_count": 256
+              },
+              {
+                "name": "blk.N.ffn_gate_exps.weight",
+                "shape": [
+                  6144,
+                  2048,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_up_exps.weight",
+                "shape": [
+                  6144,
+                  2048,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_down_exps.weight",
+                "shape": [
+                  2048,
+                  6144,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_gate_shexp.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_up_shexp.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_down_shexp.weight",
+                "shape": [
+                  2048,
+                  6144
+                ],
+                "parameter_count": 12582912
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 9868819200,
+        "total_parameter_count": 740161440000
+      },
+      {
+        "range": [
+          78,
+          78
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "dsa_mla_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 64,
+              "q_lora_rank": 2048,
+              "kv_lora_rank": 512,
+              "sparse_indexer": true
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q_a.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.attn_q_a_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              },
+              {
+                "name": "blk.N.attn_q_b.weight",
+                "shape": [
+                  2048,
+                  16384
+                ],
+                "parameter_count": 33554432
+              },
+              {
+                "name": "blk.N.attn_kv_a_mqa.weight",
+                "shape": [
+                  6144,
+                  576
+                ],
+                "parameter_count": 3538944
+              },
+              {
+                "name": "blk.N.attn_kv_a_norm.weight",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_k_b.weight",
+                "shape": [
+                  192,
+                  512,
+                  64
+                ],
+                "parameter_count": 6291456
+              },
+              {
+                "name": "blk.N.attn_v_b.weight",
+                "shape": [
+                  512,
+                  256,
+                  64
+                ],
+                "parameter_count": 8388608
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  16384,
+                  6144
+                ],
+                "parameter_count": 100663296
+              },
+              {
+                "name": "blk.N.indexer.attn_k.weight",
+                "shape": [
+                  6144,
+                  128
+                ],
+                "parameter_count": 786432
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "moe_mlp",
+            "name": "expert_feed_forward",
+            "config": {
+              "expert_count": 256,
+              "experts_per_token": 8
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate_inp.weight",
+                "shape": [
+                  6144,
+                  256
+                ],
+                "parameter_count": 1572864
+              },
+              {
+                "name": "blk.N.exp_probs_b.bias",
+                "shape": [
+                  256
+                ],
+                "parameter_count": 256
+              },
+              {
+                "name": "blk.N.ffn_gate_exps.weight",
+                "shape": [
+                  6144,
+                  2048,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_up_exps.weight",
+                "shape": [
+                  6144,
+                  2048,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_down_exps.weight",
+                "shape": [
+                  2048,
+                  6144,
+                  256
+                ],
+                "parameter_count": 3221225472
+              },
+              {
+                "name": "blk.N.ffn_gate_shexp.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_up_shexp.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_down_shexp.weight",
+                "shape": [
+                  2048,
+                  6144
+                ],
+                "parameter_count": 12582912
+              }
+            ]
+          },
+          {
+            "op": "nextn_prediction",
+            "name": "nextn",
+            "parameters": [
+              {
+                "name": "blk.N.nextn.eh_proj.weight",
+                "shape": [
+                  12288,
+                  6144
+                ],
+                "parameter_count": 75497472
+              },
+              {
+                "name": "blk.N.nextn.enorm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              },
+              {
+                "name": "blk.N.nextn.hnorm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              },
+              {
+                "name": "blk.N.nextn.shared_head_norm.weight",
+                "shape": [
+                  6144
+                ],
+                "parameter_count": 6144
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 9944335104,
+        "total_parameter_count": 9944335104
+      }
+    ],
+    "total_parameter_count": 751282715136
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            6144
+          ],
+          "parameter_count": 6144
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "output.weight",
+          "shape": [
+            6144,
+            154880
+          ],
+          "parameter_count": 951582720
+        }
+      ]
+    }
+  ]
+}

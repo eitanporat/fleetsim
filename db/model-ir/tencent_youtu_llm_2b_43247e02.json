@@ -1,0 +1,235 @@
+{
+  "schema": "fleetsim.model_architecture_ir.v0",
+  "model": {
+    "id": "tencent_youtu_llm_2b_43247e02",
+    "name": "tencent/Youtu-LLM-2B",
+    "hf_name": "tencent/Youtu-LLM-2B",
+    "base_model": "tencent/Youtu-LLM-2B",
+    "artifact_name": "Youtu LLM 2B",
+    "repo": "tencent/Youtu-LLM-2B-GGUF",
+    "file": "Youtu-LLM-2B-Q8_0.gguf",
+    "architecture": "deepseek2",
+    "source_format": "gguf",
+    "source": "https://huggingface.co/tencent/Youtu-LLM-2B-GGUF/resolve/main/Youtu-LLM-2B-Q8_0.gguf",
+    "parameter_count": 1961560064
+  },
+  "dimensions": {
+    "vocab_size": 128256,
+    "context_length": 131072,
+    "hidden_size": 2048,
+    "num_blocks": 32,
+    "num_attention_heads": 16,
+    "num_kv_heads": 1,
+    "head_dim": 576,
+    "value_head_dim": 512,
+    "intermediate_size": 6144,
+    "leading_dense_blocks": 32,
+    "q_lora_rank": 1536,
+    "kv_lora_rank": 512
+  },
+  "embeddings": [
+    {
+      "op": "embedding",
+      "name": "token_embedding",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2048,
+            128256
+          ],
+          "parameter_count": 262668288
+        }
+      ]
+    }
+  ],
+  "blocks": {
+    "count": 32,
+    "ranges": [
+      {
+        "range": [
+          0,
+          31
+        ],
+        "layout": [
+          {
+            "op": "rms_norm",
+            "name": "attention_norm",
+            "parameters": [
+              {
+                "name": "blk.N.attn_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "mla_attention",
+            "name": "attention",
+            "config": {
+              "num_heads": 16,
+              "q_lora_rank": 1536,
+              "kv_lora_rank": 512
+            },
+            "parameters": [
+              {
+                "name": "blk.N.attn_q_a.weight",
+                "shape": [
+                  2048,
+                  1536
+                ],
+                "parameter_count": 3145728
+              },
+              {
+                "name": "blk.N.attn_q_a_norm.weight",
+                "shape": [
+                  1536
+                ],
+                "parameter_count": 1536
+              },
+              {
+                "name": "blk.N.attn_q_b.weight",
+                "shape": [
+                  1536,
+                  3072
+                ],
+                "parameter_count": 4718592
+              },
+              {
+                "name": "blk.N.attn_kv_a_mqa.weight",
+                "shape": [
+                  2048,
+                  576
+                ],
+                "parameter_count": 1179648
+              },
+              {
+                "name": "blk.N.attn_kv_a_norm.weight",
+                "shape": [
+                  512
+                ],
+                "parameter_count": 512
+              },
+              {
+                "name": "blk.N.attn_k_b.weight",
+                "shape": [
+                  128,
+                  512,
+                  16
+                ],
+                "parameter_count": 1048576
+              },
+              {
+                "name": "blk.N.attn_v_b.weight",
+                "shape": [
+                  512,
+                  128,
+                  16
+                ],
+                "parameter_count": 1048576
+              },
+              {
+                "name": "blk.N.attn_output.weight",
+                "shape": [
+                  2048,
+                  2048
+                ],
+                "parameter_count": 4194304
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "attention_residual"
+          },
+          {
+            "op": "rms_norm",
+            "name": "ffn_norm",
+            "parameters": [
+              {
+                "name": "blk.N.ffn_norm.weight",
+                "shape": [
+                  2048
+                ],
+                "parameter_count": 2048
+              }
+            ]
+          },
+          {
+            "op": "mlp",
+            "name": "feed_forward",
+            "config": {
+              "activation": "silu",
+              "gating": "swiglu"
+            },
+            "parameters": [
+              {
+                "name": "blk.N.ffn_gate.weight",
+                "shape": [
+                  2048,
+                  6144
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_up.weight",
+                "shape": [
+                  2048,
+                  6144
+                ],
+                "parameter_count": 12582912
+              },
+              {
+                "name": "blk.N.ffn_down.weight",
+                "shape": [
+                  6144,
+                  2048
+                ],
+                "parameter_count": 12582912
+              }
+            ]
+          },
+          {
+            "op": "residual_add",
+            "name": "ffn_residual"
+          }
+        ],
+        "per_block_parameter_count": 53090304,
+        "total_parameter_count": 1698889728
+      }
+    ],
+    "total_parameter_count": 1698889728
+  },
+  "output": [
+    {
+      "op": "rms_norm",
+      "name": "output_norm",
+      "parameters": [
+        {
+          "name": "output_norm.weight",
+          "shape": [
+            2048
+          ],
+          "parameter_count": 2048
+        }
+      ]
+    },
+    {
+      "op": "linear",
+      "name": "lm_head",
+      "parameters": [
+        {
+          "name": "token_embd.weight",
+          "shape": [
+            2048,
+            128256
+          ],
+          "parameter_count": 0,
+          "tied_to": "token_embedding"
+        }
+      ]
+    }
+  ]
+}
